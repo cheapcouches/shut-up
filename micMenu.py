@@ -10,9 +10,14 @@ class MicWindow(tk.Toplevel):
 		self.title("Configure Microphone")
 		content = ttk.Frame(self, borderwidth = 3, relief="raised")
 
-		micList = ttk.Combobox(content, text="Choose an input", values = sd.query_devices(kind='input'))
+		deviceList = []
+		for x in sd.query_devices():
+			deviceList.append(x.get('name'))
+
+		micList = ttk.Combobox(content, text="Choose an input", width=30, values = deviceList)
 		cancelButton = ttk.Button(content, text="cancel", command=None)
 		acceptButton = ttk.Button(content, text="Accept", command=None)
+		print(deviceList)
 
 		content.grid(sticky="news", column=0, row=0)
 		micList.grid(column=0, row=0, columnspan=2)
